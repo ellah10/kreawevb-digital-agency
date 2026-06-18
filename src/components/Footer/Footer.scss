@@ -1,0 +1,125 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.footer {
+  background: $bg-darker;
+  border-top: 1px solid $border-dark;
+  padding: 56px 0 40px;
+
+  // ─── Grille 4 colonnes ──────────────────────────────────
+  &__grid {
+    @include container(1080px);
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 40px;
+
+    @include lg { grid-template-columns: 1fr 1fr; }
+    @include sm { grid-template-columns: 1fr; }
+  }
+
+  // ─── Colonne brand ─────────────────────────────────────
+  &__brand {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  &__logo {
+    display: inline-block;
+    text-decoration: none;
+    margin-bottom: 18px;
+
+    img {
+      height: 32px;
+      width: auto;
+      display: block;
+    }
+  }
+
+  &__tagline {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: $text-muted-dark;
+    max-width: 240px;
+    margin: 0 0 24px;
+  }
+
+  &__socials {
+    display: flex;
+    gap: 10px;
+  }
+
+  &__social {
+    width: 36px;
+    height: 36px;
+    border-radius: $radius-sm;
+    border: 1px solid $border-dark;
+    color: $text-muted-dark;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: $transition;
+
+    &:hover {
+      color: $purple;
+      border-color: $purple;
+      background: rgba(123, 111, 232, 0.08);
+    }
+  }
+
+  // ─── Colonnes nav ───────────────────────────────────────
+  &__col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__col-heading {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #AFA6E7;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  &__col-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__col-link {
+    font-size: 0.88rem;
+    color: $text-muted-dark;
+    text-decoration: none;
+    transition: $transition;
+    cursor: pointer;
+
+    &:hover { color: $text-white; }
+  }
+
+  // ─── Bottom bar ─────────────────────────────────────────
+  &__bottom {
+    @include container(1080px);
+    margin-top: 36px;
+    padding-top: 22px;
+    border-top: 1px solid $border-dark;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: $text-muted-dark;
+
+    @include sm { flex-direction: column; gap: 8px; text-align: center; }
+  }
+
+  &__version {
+    color: #AFA6E7;
+  }
+}

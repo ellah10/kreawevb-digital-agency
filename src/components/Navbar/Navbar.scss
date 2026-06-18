@@ -1,0 +1,113 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 18px 0;
+  transition: $transition;
+
+  &--scrolled {
+    background: rgba(13, 11, 31, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid $border-dark;
+    padding: 12px 0;
+  }
+
+  &__inner {
+    @include container;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    flex-shrink: 0;
+
+    img {
+      height: 36px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+      // Hauteur réduite quand navbar scrollée
+      transition: height $transition;
+    }
+  }
+
+  &--scrolled &__logo img {
+    height: 30px;
+  }
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+
+    a {
+      color: $text-light;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: $fw-medium;
+      transition: $transition;
+
+      &:hover { color: $text-white; }
+    }
+
+    @include md {
+      position: fixed;
+      inset: 0 0 0 auto;
+      width: min(280px, 80vw);
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 28px;
+      padding: 32px;
+      background: $bg-surface-dark;
+      transform: translateX(100%);
+      transition: transform $transition-slow;
+
+      &--open { transform: translateX(0); }
+    }
+  }
+
+  &__cta {
+    @include btn-primary;
+    padding: 10px 20px;
+    font-size: 14px;
+    text-decoration: none;
+
+    &--mobile {
+      display: none;
+      @include md { display: inline-flex; }
+    }
+
+    @include md { display: none; }
+  }
+
+  &__burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    z-index: 101;
+
+    span {
+      width: 24px;
+      height: 2px;
+      background: $text-white;
+      border-radius: 2px;
+    }
+
+    @include md { display: flex; }
+  }
+}

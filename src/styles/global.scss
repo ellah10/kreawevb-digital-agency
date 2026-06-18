@@ -1,0 +1,131 @@
+@use 'variables' as *;
+
+// ─── Police Inter ────────────────────────────────────────────────────
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+// ─── Reset ───────────────────────────────────────────────────────────
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: $font-main;
+  font-weight: $fw-regular;
+  line-height: 1.5;
+  color: $text-white;
+  background: $bg-dark;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+}
+
+// ─── Accessibilité : focus visible ───────────────────────────────────
+:focus-visible {
+  outline: 2px solid $purple;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+// ─── Animations globales (Scroll Reveal) ─────────────────────────────
+
+// Fade up — entrée depuis le bas (sections, headers)
+.reveal-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.65s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Fade in — simple opacité (images, visuels)
+.reveal-fade {
+  opacity: 0;
+  transition: opacity 0.7s ease;
+
+  &.is-visible { opacity: 1; }
+}
+
+// Fade left — entrée depuis la droite (visuels, colonnes droites)
+.reveal-right {
+  opacity: 0;
+  transform: translateX(48px);
+  transition: opacity 0.65s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// Fade right — entrée depuis la gauche (colonnes gauches)
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-48px);
+  transition: opacity 0.65s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// Scale — entrée avec légère mise à l'échelle (cards, badges)
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.94);
+  transition: opacity 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.is-visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// Délais pour les grilles staggerées
+.delay-1 { transition-delay: 0.1s !important; }
+.delay-2 { transition-delay: 0.2s !important; }
+.delay-3 { transition-delay: 0.3s !important; }
+.delay-4 { transition-delay: 0.4s !important; }
+.delay-5 { transition-delay: 0.5s !important; }
+.delay-6 { transition-delay: 0.6s !important; }
+
+// Désactiver sur prefers-reduced-motion
+@media (prefers-reduced-motion: reduce) {
+  .reveal-up,
+  .reveal-fade,
+  .reveal-right,
+  .reveal-left,
+  .reveal-scale {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

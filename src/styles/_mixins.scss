@@ -1,0 +1,127 @@
+@use 'variables' as *;
+
+// ════════════════════════════════════════════════════════════════════
+//  KREAWEB · Mixins
+// ════════════════════════════════════════════════════════════════════
+
+// ─── Responsive ──────────────────────────────────────────────────────
+@mixin lg { @media (max-width: $bp-lg) { @content; } }
+@mixin md { @media (max-width: $bp-md) { @content; } }
+@mixin sm { @media (max-width: $bp-sm) { @content; } }
+
+// ─── Container centré ────────────────────────────────────────────────
+@mixin container($width: $container) {
+  width: 100%;
+  max-width: $width;
+  margin: 0 auto;
+  padding-inline: 24px;
+}
+
+// ─── Flex helpers ────────────────────────────────────────────────────
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// ─── GRID MOTIF via pseudo-élément ───────────────────────────────────
+// Injecte le motif SVG en ::before ou ::after sans surcharger le markup.
+//
+//   @include grid-motif('dark', 'after', right);
+//
+//   $variant : 'dark' | 'light'   → quel SVG charger
+//   $pseudo  : 'before' | 'after' → quel pseudo-élément
+//   $align   : right | left       → position horizontale
+//   $opacity : 0–1                → intensité
+//   $size    : largeur du motif
+
+@mixin grid-motif(
+  $variant: 'dark',
+  $pseudo: 'after',
+  $align: right,
+  $opacity: 0.9,
+  $size: 440px
+) {
+  position: relative;
+  overflow: hidden;
+
+  &::#{$pseudo} {
+    content: "";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    #{$align}: 0;
+    width: $size;
+    height: $size * 1.1;
+    background-image: url('../../assets/grid-#{$variant}.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    opacity: $opacity;
+    pointer-events: none;
+    z-index: 0;
+
+    @include md {
+      opacity: $opacity * 0.4;
+      width: $size * 0.7;
+      height: $size * 0.77;
+    }
+  }
+}
+
+// ─── Bouton principal (CTA violet) ───────────────────────────────────
+@mixin btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  background: $purple;
+  color: $text-white;
+  border: none;
+  border-radius: $radius-sm;
+  font-family: $font-main;
+  font-size: 15px;
+  font-weight: $fw-semibold;
+  cursor: pointer;
+  transition: $transition;
+
+  &:hover {
+    background: $purple-dark;
+    transform: translateY(-2px);
+  }
+}
+
+// ─── Bouton fantôme (bordure violette) ───────────────────────────────
+@mixin btn-ghost($on-dark: true) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  background: transparent;
+  @if $on-dark { color: $text-white; } @else { color: $text-dark; }
+  border: 1.5px solid $border-purple;
+  border-radius: $radius-sm;
+  font-family: $font-main;
+  font-size: 15px;
+  font-weight: $fw-medium;
+  cursor: pointer;
+  transition: $transition;
+
+  &:hover {
+    border-color: $purple;
+    background: rgba(123, 111, 232, 0.08);
+  }
+}
+
+// ─── Eyebrow (petit label au-dessus des titres) ──────────────────────
+@mixin eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: $fw-semibold;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: $purple;
+  margin-bottom: 16px;
+}

@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 485" width="520" height="485">
+  <defs>
+    <linearGradient id="solid" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#8B80F0"/>
+      <stop offset="100%" stop-color="#7065DA"/>
+    </linearGradient>
+    <linearGradient id="bigGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#9C96F0"/>
+      <stop offset="100%" stop-color="#7E73E8"/>
+    </linearGradient>
+    <linearGradient id="medLav" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#CFC9FA"/>
+      <stop offset="100%" stop-color="#BBB2F5"/>
+    </linearGradient>
+    <linearGradient id="brightSm" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#8478F0"/>
+      <stop offset="100%" stop-color="#6E62E2"/>
+    </linearGradient>
+    <linearGradient id="lavSoft" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#E0DCFA"/>
+      <stop offset="100%" stop-color="#D2CCF5"/>
+    </linearGradient>
+    <linearGradient id="whiteCard" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F4F2FF"/>
+    </linearGradient>
+    <filter id="shadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#7B6FE8" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+
+  <!-- Grand carré violet plein (haut-gauche) avec ombre -->
+  <rect x="0" y="0" width="240" height="240" rx="34" fill="url(#solid)" filter="url(#shadow)"/>
+
+  <!-- Petit carré violet plein (milieu-gauche) avec ombre -->
+  <rect x="0" y="265" width="100" height="100" rx="20" fill="url(#brightSm)" filter="url(#shadow)"/>
+
+  <!-- Carré lavande léger (bas-gauche) -->
+  <rect x="0" y="385" width="100" height="100" rx="20" fill="url(#lavSoft)"/>
+
+  <!-- Cartes blanches bordées (colonne centre) -->
+  <rect x="125" y="265" width="100" height="100" rx="20" fill="url(#whiteCard)" stroke="#D9D4F5" stroke-width="1.5"/>
+  <rect x="125" y="385" width="100" height="100" rx="20" fill="url(#whiteCard)" stroke="#D9D4F5" stroke-width="1.5"/>
+
+  <!-- Colonne droite haute -->
+  <rect x="260" y="0"   width="100" height="100" rx="20" fill="url(#medLav)"/>
+  <rect x="380" y="0"   width="100" height="100" rx="20" fill="url(#whiteCard)" stroke="#D9D4F5" stroke-width="1.5"/>
+  <rect x="260" y="125" width="100" height="100" rx="20" fill="url(#whiteCard)" stroke="#D9D4F5" stroke-width="1.5"/>
+  <rect x="380" y="125" width="100" height="100" rx="20" fill="url(#lavSoft)"/>
+
+  <!-- Grand carré violet dégradé (bas-droite) avec ombre -->
+  <rect x="260" y="265" width="220" height="220" rx="34" fill="url(#bigGrad)" filter="url(#shadow)"/>
+</svg>

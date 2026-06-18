@@ -1,0 +1,260 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+// ─── Section ─────────────────────────────────────────────────────────
+.contact {
+  background: $bg-dark;
+  padding: 72px 0 96px;
+
+  &__inner {
+    @include container(1080px);
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 56px;
+    align-items: start;
+
+    @include md { grid-template-columns: 1fr; gap: 40px; }
+  }
+
+  // ─── Colonne info ─────────────────────────────────────────
+  &__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: #AFA6E7;
+    margin-bottom: 16px;
+
+    &-line {
+      width: 22px;
+      height: 1px;
+      background: #AFA6E7;
+      opacity: 0.6;
+    }
+  }
+
+  &__title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: $text-white;
+    margin: 0 0 16px;
+
+    em {
+      font-style: normal;
+      color: $purple;
+    }
+  }
+
+  &__text {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: $text-muted-dark;
+    max-width: 420px;
+    margin: 0 0 36px;
+  }
+
+  // ─── Liste de détails (email, studio, réponse) ────────────
+  &__details {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  &__detail {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  &__detail-icon {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    border-radius: $radius-md;
+    background: rgba(175, 166, 231, 0.12);
+    border: 1px solid $border-dark;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #AFA6E7;
+  }
+
+  &__detail-label {
+    display: block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.64rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: $text-muted-dark;
+  }
+
+  &__detail-value {
+    display: block;
+    font-size: 1rem;
+    color: $text-white;
+    margin-top: 2px;
+  }
+
+  // ─── Card formulaire ──────────────────────────────────────
+  &__card {
+    background: $bg-surface-dark;
+    border: 1px solid $border-dark;
+    border-radius: $radius-lg;
+    padding: 36px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+
+    @include sm { padding: 24px; }
+  }
+
+  // ─── Form layout ─────────────────────────────────────────
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  &__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+
+    @include sm { grid-template-columns: 1fr; }
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    label,
+    &-mono {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #AFA6E7;
+    }
+
+    input,
+    textarea {
+      font-family: $font-main;
+      font-size: 0.95rem;
+      color: $text-white;
+      background: $bg-dark;
+      border: 1px solid $border-dark;
+      border-radius: $radius-md;
+      padding: 12px 15px;
+      outline: none;
+      resize: none;
+      transition: $transition;
+      width: 100%;
+      box-sizing: border-box;
+
+      &::placeholder { color: $text-muted-dark; }
+
+      &:focus {
+        border-color: $border-purple;
+        box-shadow: 0 0 0 3px rgba(123, 111, 232, 0.12);
+      }
+    }
+  }
+
+  // ─── Selector de sujet ────────────────────────────────────
+  &__subjects {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  &__subject {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    padding: 8px 14px;
+    border-radius: $radius-pill;
+    cursor: pointer;
+    border: 1px solid $border-dark;
+    background: transparent;
+    color: $text-muted-dark;
+    transition: $transition;
+
+    &:hover { border-color: $border-purple; color: $text-white; }
+
+    &--active {
+      background: linear-gradient(135deg, $purple, $purple-dark);
+      border-color: transparent;
+      color: $text-white;
+    }
+  }
+
+  // ─── Bouton submit ────────────────────────────────────────
+  &__submit {
+    @include btn-primary;
+    width: 100%;
+    padding: 15px;
+    font-size: 15px;
+    gap: 10px;
+    border-radius: $radius-md;
+  }
+
+  // ─── État succès ──────────────────────────────────────────
+  &__success {
+    text-align: center;
+    padding: 40px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__success-icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 18px;
+    border-radius: $radius-md;
+    background: rgba(123, 224, 176, 0.14);
+    color: #7BE0B0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__success-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 1.4rem;
+    color: $text-white;
+    margin: 0 0 8px;
+  }
+
+  &__success-text {
+    color: $text-muted-dark;
+    margin: 0 0 24px;
+    font-size: 0.95rem;
+  }
+
+  &__btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 11px 24px;
+    background: transparent;
+    color: $text-white;
+    border: 1.5px solid $border-purple;
+    border-radius: $radius-md;
+    font-family: $font-main;
+    font-size: 14px;
+    font-weight: $fw-medium;
+    cursor: pointer;
+    transition: $transition;
+
+    &:hover { background: rgba(123, 111, 232, 0.1); }
+  }
+}

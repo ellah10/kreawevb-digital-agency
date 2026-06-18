@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 475 475" width="475" height="475">
+  <defs>
+    <linearGradient id="bright" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#9A8FF5"/>
+      <stop offset="100%" stop-color="#6E62D8"/>
+    </linearGradient>
+    <linearGradient id="mid" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#34315F"/>
+      <stop offset="100%" stop-color="#2A2750"/>
+    </linearGradient>
+    <linearGradient id="darksq" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1C1A3A"/>
+      <stop offset="100%" stop-color="#181640"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="85%" cy="92%" r="55%">
+      <stop offset="0%" stop-color="#8B80F0" stop-opacity="0.45"/>
+      <stop offset="60%" stop-color="#8B80F0" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+  </defs>
+
+  <!-- Lumière radiale bas-droite -->
+  <rect x="-50" y="-50" width="575" height="575" fill="url(#glow)"/>
+
+  <!-- Lignes de grille subtiles -->
+  <g stroke="#7B6FE8" stroke-width="0.6" stroke-opacity="0.12">
+    <line x1="112" y1="-20" x2="112" y2="495"/>
+    <line x1="237" y1="-20" x2="237" y2="495"/>
+    <line x1="362" y1="-20" x2="362" y2="495"/>
+    <line x1="-20" y1="112" x2="495" y2="112"/>
+    <line x1="-20" y1="237" x2="495" y2="237"/>
+    <line x1="-20" y1="362" x2="495" y2="362"/>
+  </g>
+
+  <!-- Halo derrière les carrés brillants -->
+  <g filter="url(#soft)" opacity="0.55">
+    <rect x="0"   y="0"   width="100" height="100" rx="18" fill="#8B80F0"/>
+    <rect x="125" y="125" width="100" height="100" rx="18" fill="#8B80F0"/>
+    <rect x="250" y="250" width="100" height="100" rx="18" fill="#8B80F0"/>
+    <rect x="375" y="375" width="100" height="100" rx="18" fill="#8B80F0"/>
+  </g>
+
+  <!-- Carrés (avec bordure fine) -->
+  <g stroke="#7B6FE8" stroke-opacity="0.18" stroke-width="1">
+    <!-- Rangée 1 -->
+    <rect x="0"   y="0"   width="100" height="100" rx="18" fill="url(#bright)"/>
+    <rect x="125" y="0"   width="100" height="100" rx="18" fill="url(#mid)"/>
+    <rect x="250" y="0"   width="100" height="100" rx="18" fill="url(#darksq)"/>
+    <rect x="375" y="0"   width="100" height="100" rx="18" fill="url(#darksq)"/>
+    <!-- Rangée 2 -->
+    <rect x="0"   y="125" width="100" height="100" rx="18" fill="url(#mid)"/>
+    <rect x="125" y="125" width="100" height="100" rx="18" fill="url(#bright)"/>
+    <rect x="250" y="125" width="100" height="100" rx="18" fill="url(#darksq)"/>
+    <rect x="375" y="125" width="100" height="100" rx="18" fill="url(#darksq)"/>
+    <!-- Rangée 3 -->
+    <rect x="0"   y="250" width="100" height="100" rx="18" fill="url(#darksq)"/>
+    <rect x="125" y="250" width="100" height="100" rx="18" fill="url(#darksq)"/>
+    <rect x="250" y="250" width="100" height="100" rx="18" fill="url(#bright)"/>
+    <rect x="375" y="250" width="100" height="100" rx="18" fill="url(#mid)"/>
+    <!-- Rangée 4 -->
+    <rect x="0"   y="375" width="100" height="100" rx="18" fill="url(#darksq)"/>
+    <rect x="125" y="375" width="100" height="100" rx="18" fill="url(#darksq)"/>
+    <rect x="250" y="375" width="100" height="100" rx="18" fill="url(#mid)"/>
+    <rect x="375" y="375" width="100" height="100" rx="18" fill="url(#bright)"/>
+  </g>
+</svg>

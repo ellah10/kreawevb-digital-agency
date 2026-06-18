@@ -1,0 +1,122 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.portfolio {
+  background: $bg-dark-alt;
+  padding: $section-py 0;
+  position: relative;
+  overflow: hidden;
+
+  &__inner {
+    @include container;
+    position: relative;
+    z-index: 1;
+  }
+
+  &__header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  &__eyebrow { @include eyebrow; }
+
+  &__title {
+    font-size: clamp(30px, 4.5vw, 46px);
+    font-weight: $fw-bold;
+    color: $text-white;
+    margin: 0;
+
+    span { color: $purple; }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+
+    @include lg { grid-template-columns: repeat(2, 1fr); }
+    @include sm { grid-template-columns: 1fr; }
+  }
+}
+
+.project-card {
+  background: $bg-surface-dark;
+  border: 1.5px solid $border-dark;
+  border-radius: $radius-md;
+  overflow: hidden;
+  transition: $transition;
+
+  &:hover {
+    border-color: $purple;
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+
+    .project-card__link svg { transform: translateX(4px); }
+    .project-card__img { opacity: 0.75; transform: scale(1.04); }
+  }
+
+  &__visual {
+    height: 190px;
+    background: linear-gradient(135deg, var(--accent), rgba(13, 11, 31, 0.6));
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    padding: 18px;
+    overflow: hidden;
+  }
+
+  &__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    opacity: 0.55;
+    transition: opacity $transition, transform $transition-slow;
+  }
+
+  &__tag {
+    font-size: 12px;
+    font-weight: $fw-semibold;
+    color: $text-white;
+    background: rgba(13, 11, 31, 0.5);
+    backdrop-filter: blur(6px);
+    padding: 6px 12px;
+    border-radius: $radius-pill;
+  }
+
+  &__body {
+    padding: 24px;
+  }
+
+  &__name {
+    font-size: 19px;
+    font-weight: $fw-semibold;
+    color: $text-white;
+    margin: 0 0 10px;
+  }
+
+  &__desc {
+    font-size: 14px;
+    line-height: 1.6;
+    color: $text-muted-dark;
+    margin: 0 0 18px;
+  }
+
+  &__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: $purple;
+    font-size: 14px;
+    font-weight: $fw-semibold;
+    text-decoration: none;
+
+    svg {
+      width: 16px;
+      height: 16px;
+      transition: $transition;
+    }
+  }
+}

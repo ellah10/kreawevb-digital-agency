@@ -1,0 +1,63 @@
+// ════════════════════════════════════════════════════════════════════
+//  KREAWEB · Design Tokens
+// ════════════════════════════════════════════════════════════════════
+
+// ─── Couleurs : Backgrounds ──────────────────────────────────────────
+$bg-dark:         #0D0B1F;   // indigo principal (Hero, Services)
+$bg-dark-alt:     #100E24;   // indigo légèrement plus clair (Portfolio)
+$bg-darker:       #07061A;   // indigo très sombre (Footer)
+$bg-light:        #F8F7FF;   // lavande clair (Process, À propos)
+$bg-light-alt:    #F0EEFF;   // lavande très léger (surfaces claires)
+$bg-surface-dark: #13102A;   // cartes sur fond sombre
+$bg-surface-purple: #7B6FE8; // section Contact
+
+// ─── Couleurs : Accent ───────────────────────────────────────────────
+$purple:          #7B6FE8;   // accent principal
+$purple-light:    #9D94F2;   // accent clair
+$purple-bright:   #8B80F0;   // accent vif (carrés grid)
+$purple-dark:     #6B5FD8;   // accent foncé (hover)
+$purple-glow:     rgba(123, 111, 232, 0.35);
+
+// ─── Couleurs : Texte ────────────────────────────────────────────────
+$text-white:      #FFFFFF;
+$text-light:      #C8C4E0;   // texte secondaire sur fond sombre
+$text-muted-dark: #8B86A8;   // texte tertiaire sur fond sombre
+$text-dark:       #0D0B1F;   // texte sur fond clair
+$text-muted-light:#5A5580;   // texte secondaire sur fond clair
+$text-faint:      #7A768F;   // texte tertiaire sur fond clair
+
+// ─── Bordures ────────────────────────────────────────────────────────
+$border-dark:     rgba(123, 111, 232, 0.18);
+$border-light:    #E8E4FF;
+$border-purple:   rgba(123, 111, 232, 0.4);
+
+// ─── Typographie ─────────────────────────────────────────────────────
+$font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+$fw-regular:  400;
+$fw-medium:   500;
+$fw-semibold: 600;
+$fw-bold:     700;
+
+// ─── Layout ──────────────────────────────────────────────────────────
+$container:    1200px;
+$container-sm: 960px;
+
+$radius-sm:  8px;
+$radius-md:  16px;
+$radius-lg:  24px;
+$radius-xl:  32px;
+$radius-pill: 50px;
+
+// ─── Espacements de section ──────────────────────────────────────────
+$section-py:    100px;
+$section-py-sm: 64px;
+
+// ─── Transitions ─────────────────────────────────────────────────────
+$transition: 0.25s ease;
+$transition-slow: 0.4s ease;
+
+// ─── Breakpoints ─────────────────────────────────────────────────────
+$bp-lg: 1024px;
+$bp-md: 768px;
+$bp-sm: 540px;

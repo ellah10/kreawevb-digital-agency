@@ -1,0 +1,228 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+// ─── Section ─────────────────────────────────────────────────────────
+.faq {
+  position: relative;
+  background: $bg-light;
+  padding: 96px 0;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.5;
+    background-image:
+      linear-gradient(rgba(123, 111, 232, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(123, 111, 232, 0.1) 1px, transparent 1px);
+    background-size: 54px 54px;
+    -webkit-mask-image: radial-gradient(ellipse at 50% 0%, #000 30%, transparent 75%);
+    mask-image: radial-gradient(ellipse at 50% 0%, #000 30%, transparent 75%);
+  }
+
+  &__inner {
+    @include container(720px);
+    position: relative;
+    z-index: 1;
+  }
+
+  // ─── Header ────────────────────────────────────────────────────────
+  &__header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  &__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: $purple;
+
+    &-line {
+      width: 22px;
+      height: 1px;
+      background: $purple;
+      opacity: 0.6;
+    }
+  }
+
+  &__title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 4vw, 2.6rem);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: $text-dark;
+    margin: 18px 0 12px;
+
+    em { font-style: normal; color: $purple; }
+  }
+
+  &__subtitle {
+    font-size: 1rem;
+    color: $text-muted-light;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  // ─── Liste ────────────────────────────────────────────────────────
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1.5px solid $border-light;
+    border-radius: $radius-lg;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 4px 32px rgba(123, 111, 232, 0.07);
+    margin-bottom: 48px;
+  }
+
+  // ─── CTA bas ─────────────────────────────────────────────────────
+  &__cta {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+
+    p {
+      font-size: 1rem;
+      color: $text-muted-light;
+      margin: 0;
+    }
+
+    &-btn {
+      @include btn-primary;
+      text-decoration: none;
+    }
+  }
+}
+
+// ─── Accordion item ──────────────────────────────────────────────────
+.faq-item {
+  border-bottom: 1px solid $border-light;
+  transition: background $transition;
+
+  &:last-child { border-bottom: none; }
+
+  &:hover { background: rgba(123, 111, 232, 0.02); }
+
+  &--open {
+    background: rgba(123, 111, 232, 0.03);
+
+    .faq-item__question { color: $purple; }
+
+    .faq-item__icon-bar--vertical {
+      transform: rotate(90deg);
+      opacity: 0;
+    }
+
+    .faq-item__icon-wrap {
+      background: $purple;
+      border-color: $purple;
+      color: #fff;
+    }
+  }
+
+  // ─── Trigger ─────────────────────────────────────────────────────
+  &__trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 22px 28px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+  }
+
+  &__question {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    color: $text-dark;
+    line-height: 1.45;
+    transition: color $transition;
+    flex: 1;
+  }
+
+  // Icône + / ×
+  &__icon-wrap {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1.5px solid $border-light;
+    background: transparent;
+    color: $purple;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background $transition, border-color $transition, color $transition;
+  }
+
+  &__icon {
+    position: relative;
+    width: 12px;
+    height: 12px;
+  }
+
+  &__icon-bar {
+    position: absolute;
+    background: currentColor;
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+
+    &--horizontal {
+      width: 12px;
+      height: 2px;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+    }
+
+    &--vertical {
+      width: 2px;
+      height: 12px;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+    }
+  }
+
+  // ─── Body animé ──────────────────────────────────────────────────
+  &__body {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+
+    .faq-item--open & {
+      grid-template-rows: 1fr;
+    }
+  }
+
+  &__answer-wrap {
+    overflow: hidden;
+  }
+
+  &__answer {
+    padding: 0 28px 24px 28px;
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: $text-muted-light;
+    margin: 0;
+    border-left: 2px solid rgba(123, 111, 232, 0.25);
+    margin-left: 28px;
+    padding-left: 20px;
+  }
+}

@@ -1,0 +1,208 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+// ─── Section ─────────────────────────────────────────────────────────
+.testimonials {
+  position: relative;
+  background: $bg-dark;
+  color: $text-white;
+  padding: 96px 0;
+  overflow: hidden;
+  font-family: $font-main;
+
+  // Grille de fond subtile (masquée en fondu vers le bas)
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.4;
+    background-image:
+      linear-gradient(rgba(123, 111, 232, 0.14) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(123, 111, 232, 0.14) 1px, transparent 1px);
+    background-size: 54px 54px;
+    -webkit-mask-image: radial-gradient(circle at 50% 0%, #000, transparent 76%);
+    mask-image: radial-gradient(circle at 50% 0%, #000, transparent 76%);
+  }
+
+  &__inner {
+    @include container(1120px);
+    position: relative;
+    z-index: 1;
+  }
+
+  // ─── Header ────────────────────────────────────────────────────────
+  &__header {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 56px;
+  }
+
+  &__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: #AFA6E7;
+
+    &-line {
+      width: 22px;
+      height: 1px;
+      background: #AFA6E7;
+      opacity: 0.6;
+    }
+  }
+
+  &__title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 4vw, 2.6rem);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: $text-white;
+    margin: 18px 0 0;
+
+    em {
+      font-style: normal;
+      color: $purple;
+    }
+  }
+
+  // ─── Grille de cartes ──────────────────────────────────────────────
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+
+    @include lg { grid-template-columns: 1fr; max-width: 560px; margin-inline: auto; }
+  }
+
+  // ─── Bande logos ───────────────────────────────────────────────────
+  &__clients {
+    margin-top: 72px;
+    text-align: center;
+
+    &-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #9B92C4;
+      margin-bottom: 28px;
+    }
+  }
+
+  &__logos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: wrap;
+    opacity: 0.55;
+
+    @include md { gap: 28px; }
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #9B92C4;
+    transition: opacity $transition;
+
+    &:hover { opacity: 1.8; } // pas possible, on joue sur le parent
+
+    span {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      letter-spacing: -0.02em;
+    }
+  }
+}
+
+// ─── Carte témoignage ────────────────────────────────────────────────
+.testimonial-card {
+  position: relative;
+  background: $bg-surface-dark;
+  border: 1px solid rgba(123, 111, 232, 0.24);
+  border-radius: 18px;
+  padding: 32px 30px;
+  display: flex;
+  flex-direction: column;
+  transition:
+    border-color 0.25s cubic-bezier(0.2, 0.9, 0.3, 1),
+    box-shadow   0.25s cubic-bezier(0.2, 0.9, 0.3, 1),
+    transform    0.25s cubic-bezier(0.2, 0.9, 0.3, 1);
+
+  &:hover {
+    border-color: rgba(123, 111, 232, 0.55);
+    transform: translateY(-4px);
+  }
+
+  // Guillemet ouvert
+  &__quote-mark {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 4.5rem;
+    line-height: 0.6;
+    color: $purple;
+    opacity: 0.55;
+    height: 38px;
+    display: block;
+  }
+
+  // Étoiles
+  &__stars {
+    display: flex;
+    gap: 3px;
+    margin: 8px 0 16px;
+  }
+
+  // Texte
+  &__text {
+    font-size: 1rem;
+    line-height: 1.65;
+    color: #EDEAF8;
+    margin: 0 0 26px;
+    flex: 1;
+  }
+
+  // Auteur
+  &__author {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  &__avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 999px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: #fff;
+  }
+
+  &__name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 0.98rem;
+    color: $text-white;
+  }
+
+  &__role {
+    font-size: 0.82rem;
+    color: #9B92C4;
+    margin-top: 2px;
+  }
+}
