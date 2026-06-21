@@ -1,3 +1,4 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import Hero from './components/Hero/Hero';
 import Services from './components/Services/Services';
@@ -8,8 +9,9 @@ import Testimonials from './components/Testimonials/Testimonials';
 import Contact from './components/Contact/Contact';
 import Footer from './components/Footer/Footer';
 import FAQ from './components/Faq/Faq';
+import ServicePage from './components/ServicePage/ServicePage';
 
-export default function App() {
+function HomePage() {
   return (
     <>
       <Navbar />
@@ -25,5 +27,16 @@ export default function App() {
       </main>
       <Footer />
     </>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/services/:id" element={<ServicePage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
