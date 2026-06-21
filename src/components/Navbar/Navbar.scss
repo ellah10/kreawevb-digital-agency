@@ -6,13 +6,14 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 100;
+  z-index: 200;
   padding: 18px 0;
   transition: $transition;
 
   &--scrolled {
-    background: rgba(13, 11, 31, 0.85);
-    backdrop-filter: blur(12px);
+    background: rgba(13, 11, 31, 0.88);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
     border-bottom: 1px solid $border-dark;
     padding: 12px 0;
   }
@@ -25,26 +26,26 @@
     gap: 24px;
   }
 
+  // ─── Logo ──────────────────────────────────────────────────────────
   &__logo {
     display: flex;
     align-items: center;
     text-decoration: none;
     flex-shrink: 0;
+    z-index: 201;
 
     img {
-      height: 36px;
+      height: 34px;
       width: auto;
       object-fit: contain;
       display: block;
-      // Hauteur réduite quand navbar scrollée
       transition: height $transition;
     }
   }
 
-  &--scrolled &__logo img {
-    height: 30px;
-  }
+  &--scrolled &__logo img { height: 28px; }
 
+  // ─── Nav desktop ───────────────────────────────────────────────────
   &__nav {
     display: flex;
     align-items: center;
@@ -56,58 +57,222 @@
       font-size: 15px;
       font-weight: $fw-medium;
       transition: $transition;
-
       &:hover { color: $text-white; }
     }
 
+    // ── Menu mobile ──────────────────────────────────────────────────
     @include md {
       position: fixed;
-      inset: 0 0 0 auto;
-      width: min(280px, 80vw);
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
       flex-direction: column;
-      align-items: flex-start;
-      justify-content: center;
-      gap: 28px;
-      padding: 32px;
-      background: $bg-surface-dark;
+      align-items: stretch;
+      justify-content: flex-start;
+      gap: 0;
+      padding: 0;
+      background: $bg-dark;
       transform: translateX(100%);
-      transition: transform $transition-slow;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow-y: auto;
+      z-index: 210;
 
       &--open { transform: translateX(0); }
     }
   }
 
+  // ── Header du menu mobile (logo + close) ────────────────────────────
+  &__nav-header {
+    display: none;
+
+    @include md {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px;
+      border-bottom: 1px solid $border-dark;
+      flex-shrink: 0;
+    }
+  }
+
+  &__nav-logo img {
+    height: 28px;
+    width: auto;
+    display: block;
+  }
+
+  &__close {
+    background: none;
+    border: none;
+    color: $text-muted-dark;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: $radius-sm;
+    transition: $transition;
+
+    &:hover { color: $text-white; background: rgba(255,255,255,0.06); }
+  }
+
+  // ── Liens mobile ────────────────────────────────────────────────────
+  &__nav-links {
+    display: contents; // desktop : pas de wrapper
+
+    @include md {
+      display: flex;
+      flex-direction: column;
+      padding: 16px 0;
+      flex: 1;
+    }
+  }
+
+  &__nav-link {
+    display: flex !important;
+    align-items: center;
+
+    @include md {
+      gap: 16px;
+      padding: 16px 24px;
+      font-size: 1rem !important;
+      font-weight: $fw-semibold !important;
+      color: $text-light !important;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      opacity: 0;
+      transform: translateX(20px);
+      transition:
+        color $transition,
+        opacity 0.35s ease,
+        transform 0.35s ease,
+        background $transition;
+
+      &:hover {
+        color: $text-white !important;
+        background: rgba(123, 111, 232, 0.06);
+      }
+
+      .navbar__nav--open & {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+  }
+
+  &__nav-link-num {
+    display: none;
+
+    @include md {
+      display: block;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: $purple;
+      opacity: 0.8;
+      flex-shrink: 0;
+      width: 24px;
+    }
+  }
+
+  // ── Footer menu mobile (CTA + socials) ──────────────────────────────
+  &__nav-footer {
+    display: none;
+
+    @include md {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 24px;
+      border-top: 1px solid $border-dark;
+      flex-shrink: 0;
+    }
+  }
+
+  &__nav-socials {
+    display: flex;
+    gap: 14px;
+
+    a {
+      width: 36px;
+      height: 36px;
+      border-radius: $radius-sm;
+      border: 1px solid $border-dark;
+      color: $text-muted-dark !important;
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      transition: $transition;
+
+      &:hover {
+        color: $purple !important;
+        border-color: $purple;
+        background: rgba(123,111,232,0.08) !important;
+      }
+    }
+  }
+
+  // ─── CTA desktop ───────────────────────────────────────────────────
   &__cta {
     @include btn-primary;
     padding: 10px 20px;
     font-size: 14px;
     text-decoration: none;
+    flex-shrink: 0;
 
     &--mobile {
       display: none;
-      @include md { display: inline-flex; }
+      @include md { display: inline-flex; width: 100%; justify-content: center; }
     }
 
     @include md { display: none; }
   }
 
+  // ─── Burger animé ──────────────────────────────────────────────────
   &__burger {
     display: none;
     flex-direction: column;
+    justify-content: center;
     gap: 5px;
     background: none;
     border: none;
     cursor: pointer;
-    padding: 4px;
-    z-index: 101;
+    padding: 8px;
+    z-index: 220;
+    border-radius: $radius-sm;
+    transition: background $transition;
 
-    span {
-      width: 24px;
+    &:hover { background: rgba(255,255,255,0.06); }
+
+    @include md { display: flex; }
+
+    &-bar {
+      width: 22px;
       height: 2px;
       background: $text-white;
       border-radius: 2px;
+      transform-origin: center;
+      transition:
+        transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.25s ease,
+        width 0.25s ease;
     }
 
-    @include md { display: flex; }
+    // Animation X quand ouvert
+    &--open {
+      .navbar__burger-bar:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+      }
+      .navbar__burger-bar:nth-child(2) {
+        opacity: 0;
+        width: 0;
+      }
+      .navbar__burger-bar:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+      }
+    }
   }
+
+  // ─── Overlay — désactivé ───────────────────────────────────────────
+  &__overlay { display: none; }
 }

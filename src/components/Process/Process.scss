@@ -63,7 +63,7 @@
     cursor: pointer;
     transition: all 0.25s ease;
 
-    &:hover { border-color: $purple; color: $purple; }
+    &:hover { border-color: $purple; color: #fff; }
 
     &--active {
       background: $purple;
