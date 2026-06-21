@@ -33,7 +33,7 @@ function AccordionItem({ item, isOpen, onToggle }) {
 }
 
 export default function FAQ() {
-  const [openIndex, setOpenIndex] = useState(0);
+  const [openIndex, setOpenIndex] = useState(null);
   const headerRef = useScrollReveal();
   const listRef   = useScrollReveal({ threshold: 0.05 });
   const ctaRef    = useScrollReveal();
