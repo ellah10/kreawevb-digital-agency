@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useState, useEffect, useCallback, useRef } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './Navbar.scss';
 import Logo from '../../assets/Frame 2.png';
 
@@ -14,10 +14,44 @@ const links = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen]         = useState(false);
-  const location = useLocation();
 
-  const isSubRoute = location.pathname !== '/';
-  const href = (anchor) => isSubRoute ? `/#${anchor}` : `#${anchor}`;
+  const location      = useLocation();
+  const navigate      = useNavigate();
+  const pendingAnchor = useRef(null);
+
+  const scrollToAnchor = useCallback((anchor) => {
+    const el = document.getElementById(anchor);
+    if (!el) return;
+    const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 80;
+    const top = el.getBoundingClientRect().top + window.scrollY - navbarHeight;
+    window.scrollTo({ top, behavior: 'smooth' });
+  }, []);
+
+  const handleAnchorClick = useCallback((e, anchor) => {
+    e.preventDefault();
+    setOpen(false);
+    document.body.style.overflow = '';
+
+    if (location.pathname !== '/') {
+      // Stocker l'ancre, naviguer vers /, puis scroller après mount
+      pendingAnchor.current = anchor;
+      navigate('/');
+    } else {
+      scrollToAnchor(anchor);
+    }
+  }, [location.pathname, navigate, scrollToAnchor]);
+
+  // Dès qu'on est sur /, exécuter l'ancre en attente
+  useEffect(() => {
+    if (location.pathname === '/' && pendingAnchor.current) {
+      const anchor = pendingAnchor.current;
+      pendingAnchor.current = null;
+      // Double rAF : garantit que React a fini de peindre le DOM
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => scrollToAnchor(anchor));
+      });
+    }
+  }, [location.pathname, scrollToAnchor]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -25,16 +59,13 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Bloquer le scroll body quand le menu est ouvert
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
   }, [open]);
 
-  // Fermer le menu au changement de route
   useEffect(() => { setOpen(false); }, [location.pathname]);
 
-  // ✅ Fermer le menu avec la touche Échap
   useEffect(() => {
     const onKey = (e) => { if (e.key === 'Escape') setOpen(false); };
     document.addEventListener('keydown', onKey);
@@ -45,71 +76,69 @@ export default function Navbar() {
     <>
       <header className={`navbar ${scrolled ? 'navbar--scrolled' : ''} ${open ? 'navbar--open' : ''}`}>
         <div className="navbar__inner">
-          <a href="/" className="navbar__logo">
+          <Link to="/" className="navbar__logo">
             <img src={Logo} alt="Kreaweb" />
-          </a>
+          </Link>
 
-          {/* ✅ onClick sur le fond du nav (e.target === e.currentTarget) ferme le menu */}
           <nav
             className={`navbar__nav ${open ? 'navbar__nav--open' : ''}`}
             onClick={(e) => { if (e.target === e.currentTarget) setOpen(false); }}
           >
-            {/* Header du menu mobile */}
             <div className="navbar__nav-header">
-              <a href="/" className="navbar__nav-logo">
+              <Link to="/" className="navbar__nav-logo" onClick={() => setOpen(false)}>
                 <img src={Logo} alt="Kreaweb" />
-              </a>
+              </Link>
+
               <button className="navbar__close" onClick={() => setOpen(false)} aria-label="Fermer">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
                 </svg>
               </button>
             </div>
 
-            {/* Liens */}
             <div className="navbar__nav-links">
-              {links.map((l, i) => (
+              {links.map((link, i) => (
                 <a
-                  key={l.anchor}
-                  href={href(l.anchor)}
+                  key={link.anchor}
+                  href={`#${link.anchor}`}
                   className="navbar__nav-link"
                   style={{ transitionDelay: open ? `${i * 60}ms` : '0ms' }}
-                  onClick={() => setOpen(false)}
+                  onClick={(e) => handleAnchorClick(e, link.anchor)}
                 >
                   <span className="navbar__nav-link-num">0{i + 1}</span>
-                  {l.label}
+                  {link.label}
                 </a>
               ))}
             </div>
 
-            {/* CTA mobile */}
             <div className="navbar__nav-footer">
-              <a href={href('contact')} className="navbar__cta navbar__cta--mobile" onClick={() => setOpen(false)}>
+              <a
+                href="#contact"
+                className="navbar__cta navbar__cta--mobile"
+                onClick={(e) => handleAnchorClick(e, 'contact')}
+              >
                 Démarrer un projet
               </a>
+
               <div className="navbar__nav-socials">
                 <a href="https://www.instagram.com/kreaweb__" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-                  </svg>
+                  Instagram
                 </a>
                 <a href="https://www.tiktok.com/@kreaweb" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/>
-                  </svg>
+                  TikTok
                 </a>
                 <a href="https://www.linkedin.com/company/kreaweb0/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2zM4 2a2 2 0 1 1 0 4 2 2 0 0 1 0-4z"/>
-                  </svg>
+                  LinkedIn
                 </a>
               </div>
             </div>
           </nav>
 
-          <a href={href('contact')} className="navbar__cta">Démarrer un projet</a>
+          <a href="#contact" className="navbar__cta" onClick={(e) => handleAnchorClick(e, 'contact')}>
+            Démarrer un projet
+          </a>
 
-          {/* Burger animé */}
           <button
             className={`navbar__burger ${open ? 'navbar__burger--open' : ''}`}
             aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'}
@@ -123,7 +152,6 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* Overlay — désactivé (menu plein écran) */}
       <div
         className={`navbar__overlay ${open ? 'navbar__overlay--visible' : ''}`}
         onClick={() => setOpen(false)}

@@ -273,6 +273,29 @@
     }
   }
 
-  // ─── Overlay — désactivé ───────────────────────────────────────────
-  &__overlay { display: none; }
+  // ─── Overlay ─────────────────────────────────────────────────────────
+  &__overlay {
+    display: none;
+
+    @include md {
+      display: block;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0);
+      z-index: 205;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+
+      &--visible {
+        opacity: 1;
+        pointer-events: all;
+      }
+    }
+  }
+}
+// ─── Corrections responsive globales ─────────────────────────────────
+// S'assurer que le navbar prend bien 100% de la largeur de l'écran
+.navbar {
+  width: 100%;
 }
