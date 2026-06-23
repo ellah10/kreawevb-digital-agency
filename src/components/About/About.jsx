@@ -43,7 +43,7 @@ export default function About() {
             ))}
           </div>
 
-          <a href="#contact" className="about__btn">Notre histoire</a>
+          <a href="#" className="about__btn">Notre histoire</a>
         </div>
       </div>
     </section>

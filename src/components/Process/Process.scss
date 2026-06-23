@@ -1,5 +1,5 @@
-@use '../../styles/variables' as *;
-@use '../../styles/mixins' as *;
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
 
 .process {
   position: relative;
@@ -9,26 +9,39 @@
   padding: 96px 0;
   overflow: hidden;
 
-  &__inner { @include container(1080px); position: relative; z-index: 1; }
+  &__inner {
+    @include container(1080px);
+    position: relative;
+    z-index: 1;
+  }
 
   // ─── Header ──────────────────────────────────────────────────────
-  &__header { text-align: center; max-width: 620px; margin: 0 auto 48px; }
+  &__header {
+    text-align: center;
+    max-width: 620px;
+    margin: 0 auto 48px;
+  }
 
   &__eyebrow {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    font-family: 'Space Mono', monospace;
+    font-family: "Space Mono", monospace;
     font-size: 0.72rem;
     letter-spacing: 0.28em;
     text-transform: uppercase;
     color: $purple;
 
-    &-line { width: 22px; height: 1px; background: $purple; opacity: 0.6; }
+    &-line {
+      width: 22px;
+      height: 1px;
+      background: $purple;
+      opacity: 0.6;
+    }
   }
 
   &__title {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: "Space Grotesk", sans-serif;
     font-weight: 700;
     font-size: clamp(2rem, 4vw, 2.6rem);
     line-height: 1.08;
@@ -36,10 +49,18 @@
     color: $text-dark;
     margin: 18px 0 12px;
 
-    em { font-style: normal; color: $purple; }
+    em {
+      font-style: normal;
+      color: $purple;
+    }
   }
 
-  &__subtitle { font-size: 1rem; color: $text-muted-light; margin: 0; line-height: 1.6; }
+  &__subtitle {
+    font-size: 1rem;
+    color: $text-muted-light;
+    margin: 0;
+    line-height: 1.6;
+  }
 
   // ─── Tabs ────────────────────────────────────────────────────────
   &__tabs {
@@ -56,14 +77,18 @@
     border: 1.5px solid $border-light;
     background: #fff;
     color: $text-muted-light;
-    font-family: 'Space Mono', monospace;
+    font-family: "Space Mono", monospace;
     font-size: 0.7rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     cursor: pointer;
     transition: all 0.25s ease;
 
-    &:hover { border-color: $purple; color: #fff; }
+    &:hover {
+      border-color: $purple;
+      color: #fff;
+      background-color: #7B6FE8;
+    }
 
     &--active {
       background: $purple;
@@ -80,7 +105,9 @@
     gap: 48px;
     align-items: start;
 
-    @include md { grid-template-columns: 1fr; }
+    @include md {
+      grid-template-columns: 1fr;
+    }
   }
 
   // ─── Image ───────────────────────────────────────────────────────
@@ -90,7 +117,9 @@
     overflow: hidden;
     aspect-ratio: 4 / 3;
 
-    @include md { aspect-ratio: 16 / 9; }
+    @include md {
+      aspect-ratio: 16 / 9;
+    }
   }
 
   &__image {
@@ -99,23 +128,31 @@
     object-fit: cover;
     display: block;
     filter: brightness(0.8) saturate(0.85);
-    transition: transform 0.5s ease, opacity 0.4s ease;
+    transition:
+      transform 0.5s ease,
+      opacity 0.4s ease;
     animation: imgFadeIn 0.5s ease forwards;
 
-    &:hover { transform: scale(1.04); }
+    &:hover {
+      transform: scale(1.04);
+    }
   }
 
   &__image-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(13,11,31,0.75) 0%, transparent 55%);
+    background: linear-gradient(
+      to top,
+      rgba(13, 11, 31, 0.75) 0%,
+      transparent 55%
+    );
     display: flex;
     align-items: flex-end;
     padding: 28px;
   }
 
   &__tagline {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: "Space Grotesk", sans-serif;
     font-size: 1.05rem;
     font-weight: 600;
     color: #fff;
@@ -142,14 +179,18 @@
   // Animation d'entrée — part de opacity:0 translateX(-12px)
   opacity: 0;
   transform: translateX(-16px);
-  transition: opacity 0.45s ease, transform 0.45s ease;
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s ease;
 
   &--visible {
     opacity: 1;
     transform: translateX(0);
   }
 
-  &:last-child { padding-bottom: 0; }
+  &:last-child {
+    padding-bottom: 0;
+  }
 
   // ─── Ligne verticale ─────────────────────────────────────────────
   &__line {
@@ -164,10 +205,10 @@
 
     // La ligne se "remplit" en violet quand l'item devient visible
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(to bottom, $purple, rgba(123,111,232,0.2));
+      background: linear-gradient(to bottom, $purple, rgba(123, 111, 232, 0.2));
       transform: scaleY(0);
       transform-origin: top;
       transition: transform 0.5s ease 0.3s;
@@ -192,23 +233,28 @@
     position: relative;
     z-index: 1;
     flex-shrink: 0;
-    transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    transition:
+      border-color 0.3s ease,
+      background 0.3s ease,
+      box-shadow 0.3s ease;
 
     .timeline-item--visible & {
       border-color: $purple;
-      box-shadow: 0 0 0 4px rgba(123,111,232,0.1);
+      box-shadow: 0 0 0 4px rgba(123, 111, 232, 0.1);
     }
 
     &--last {
       background: $purple !important;
       border-color: $purple !important;
       color: #fff !important;
-      box-shadow: 0 4px 20px rgba(123,111,232,0.4) !important;
+      box-shadow: 0 4px 20px rgba(123, 111, 232, 0.4) !important;
     }
   }
 
   // ─── Contenu ─────────────────────────────────────────────────────
-  &__content { padding-top: 10px; }
+  &__content {
+    padding-top: 10px;
+  }
 
   &__meta {
     display: flex;
@@ -218,18 +264,18 @@
   }
 
   &__number {
-    font-family: 'Space Mono', monospace;
+    font-family: "Space Mono", monospace;
     font-size: 0.62rem;
     letter-spacing: 0.1em;
     color: $purple;
-    background: rgba(123,111,232,0.1);
+    background: rgba(123, 111, 232, 0.1);
     padding: 3px 8px;
     border-radius: $radius-pill;
     flex-shrink: 0;
   }
 
   &__title {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: "Space Grotesk", sans-serif;
     font-weight: 600;
     font-size: 1rem;
     color: $text-dark;
@@ -246,6 +292,12 @@
 
 // ─── Animation image swap ────────────────────────────────────────────
 @keyframes imgFadeIn {
-  from { opacity: 0; transform: scale(1.03); }
-  to   { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(1.03);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
